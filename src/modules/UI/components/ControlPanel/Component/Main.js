@@ -16,8 +16,10 @@ import logoutImage from '../../../../../assets/images/sidenav/logout.png'
 import settings from '../../../../../assets/images/sidenav/settings.png'
 import spendImage from '../../../../../assets/images/sidenav/spend.png'
 
+const BUY_SELL_TEXT = sprintf(strings.enUS['drawer_buy_sell'])
 const LOGOUT_TEXT = sprintf(strings.enUS['settings_button_logout'])
 const SETTINGS_TEXT = sprintf(strings.enUS['settings_title'])
+const SPEND_TEXT = sprintf(strings.enUS['drawer_spend_bitcoin'])
 
 type Props ={
   logout: (username?: string) => void,
@@ -62,30 +64,32 @@ export default class Main extends Component<Props, State> {
               </View>
             </View>
           </TouchableHighlight>
+
           <TouchableHighlight style={styles.others.iosTouchableHighlight}
             underlayColor={styles.main.iosTouchableHighlightUnderlayColor}
-            onPress={this._handleOnPressRouting('buysell')}>
+            onPress={Actions.buySellTab}>
             <View style={[ styles.others.link, styles.others.borderVertical, {flex: 1} ]}>
               <View style={styles.iconImageContainer}>
                 <Image style={styles.iconImage} source={buyAndSellImage} />
               </View>
               <View style={styles.others.textContainer}>
                 <Text style={styles.others.text}>
-                  Buy/Sell
+                  {BUY_SELL_TEXT}
                 </Text>
               </View>
             </View>
           </TouchableHighlight>
+
           <TouchableHighlight style={styles.others.iosTouchableHighlight}
             underlayColor={styles.main.iosTouchableHighlightUnderlayColor}
-            onPress={this._handleOnPressRouting('spend')}>
+            onPress={Actions.spendTab}>
             <View style={[ styles.others.link, styles.others.borderVertical, {flex: 1} ]}>
               <View style={styles.iconImageContainer}>
                 <Image style={styles.iconImage} source={spendImage} />
               </View>
               <View style={styles.others.textContainer}>
                 <Text style={styles.others.text}>
-                  Spend
+                  {SPEND_TEXT}
                 </Text>
               </View>
             </View>

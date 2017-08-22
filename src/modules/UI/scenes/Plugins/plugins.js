@@ -1,8 +1,6 @@
-import ENV from '../../../../../env.json'
-
 export const BUY_SELL = [ {
   'pluginId': 'com.glidera.us',
-  'sourceFile': require('../../../../html/plugins/foldapp.html'),
+  'sourceFile': require('../../../../html/plugins/skeleton.html'),
   'key': 'Glidera',
   'subtitle': '',
   'provider': 'Glidera Inc',
@@ -22,20 +20,8 @@ export const SPEND = [ {
   'subtitle': '',
   'provider': '',
   'imageUrl': 'https://i.pinimg.com/originals/7e/4f/ef/7e4fef8df95932bf7074f18134c3d04d.png',
-  'API-TOKEN': 'TEST-API-TOKEN',
-}, {
-  'pluginId': 'com.foldapp',
-  'sourceFile': require('../../../../html/plugins/foldapp.html'),
-  'key': 'Starbucks', // TODO: Move to strings
-  'subtitle': '(Up to 20% Off)',
-  'provider': 'Card For Coin Inc.',
-  'imageUrl': 'https://airbitz.co/go/wp-content/uploads/2016/08/starbucks_logo2.png',
-  'API-TOKEN': ENV.FOLD_API_KEY,
-  'AIRBITZ-STATS-KEY': ENV.AIRBITZ_BUSINESS_DIRECTORY_KEY,
-  'BRAND': 'Starbucks',
-  'LOGO_URL': 'https://airbitz.co/go/wp-content/uploads/2015/12/green-coffee-mug-128px.png',
-  'BIZID': 11131,
-  'CATEGORY': 'Expense:Coffee Shops'
+  'API_TOKEN': 'TEST-API-TOKEN',
+  /*
 }, {
   'pluginId': 'com.foldapp',
   'sourceFile': require('../../../../html/plugins/foldapp.html'),
@@ -49,4 +35,5 @@ export const SPEND = [ {
   'LOGO_URL': 'https://airbitz.co/go/wp-content/uploads/2015/12/red-bulls-eye-128px.png',
   'BIZID': 11132,
   'CATEGORY': 'Expense:Shopping'
+  */
 }]

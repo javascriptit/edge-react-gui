@@ -16,7 +16,17 @@ export class PluginBridge {
     this.navStack = []
   }
 
+  componentDidMount () {
+    Actions.refresh({
+      onLeft:() => {
+        this.back()
+      },
+      leftTitle:'Back'
+    })
+  }
+
   bitidAddress () {
+    // TODO: not supported by core...yet
     return Promise.resolve(null)
   }
 
@@ -27,7 +37,7 @@ export class PluginBridge {
   }
 
   chooseWallet () {
-    // TODO: this.props.toggleScanToWalletListModal()
+    this.context.toggleWalletList()
     return Promise.resolve(null)
   }
 
@@ -52,27 +62,45 @@ export class PluginBridge {
       })
   }
 
-  finalizeReceiveRequest () {
-    // TODO
-    // const {wallet, requestId} = data
-    return Promise.resolve(null)
+  finalizeReceiveRequest (data) {
+    const {coreWallet, receiveAddress} = data
+    return WALLET_API.lockReceiveAddress(coreWallet, receiveAddress)
   }
 
-  createSpendRequest () {
-    // TODO
-    // const {wallet, toAddress, amountSatoshi, options} = data
-    return Promise.resolve(null)
+  _spend (spendTargets, lockInputs, broadcast) {
+    return new Promise((resolve, reject) => {
+      Actions.sendConfirmation({
+        abcSpendInfo: {spendTargets},
+        finishCallback: (error, abcTransaction) => {
+          (error) ? reject(error) : resolve(abcTransaction)
+        },
+        lockInputs,
+        broadcast
+      })
+    })
   }
 
-  createSpendRequest2 () {
-    // TODO
-    // const {wallet, toAddress, toAddress2, amountSatoshi, amountSatoshi2, options} = data
-    return Promise.resolve(null)
+  createSpendRequest (data) {
+    const {toAddress, nativeAmount} = data
+    return this._spend([{
+      publicAddress:toAddress, nativeAmount:nativeAmount
+    }], true, true)
+  }
+
+  createSpendRequest2 (data) {
+    const {toAddress, toAddress2, nativeAmount, nativeAmount2} = data
+    return this._spend([{
+      publicAddress:toAddress, nativeAmount:nativeAmount
+    }, {
+      publicAddress:toAddress2, nativeAmount:nativeAmount2
+    }], true, true)
   }
 
   requestSign (data) {
-    const {coreWallet, signTransaction} = data
-    return WALLET_API.signTransaction(coreWallet, signTransaction)
+    const {toAddress, nativeAmount} = data
+    return this._spend([{
+      publicAddress:toAddress, nativeAmount:nativeAmount
+    }], true, false)
   }
 
   broadcastTx (data) {
@@ -136,27 +164,27 @@ export class PluginBridge {
     return Promise.resolve(null)
   }
 
-  showAlert () {
-    // TODO: this.props.openABAlert({title: data['title'], message: data['message']})
+  showAlert (data) {
+    this.context.showAlert({success: data['success'], title: data['title'], message: data['message']})
     return Promise.resolve(null)
   }
 
   hideAlert () {
-    // TODO: this.props.closeABAlert()
     return Promise.resolve(null)
   }
 
-  title () {
-    // TODO
-    // const {title} = data
-    return Promise.resole(null)
+  title (data) {
+    const {title} = data
+    Actions.refresh({title: title})
+    return Promise.resolve(null)
   }
 
   back () {
     if (this.navStack.length === 0) {
       Actions.pop()
     } else {
-      this.webview.injectJavaScript('window.history.back()')
+      this.navStackPop()
+      this.context.back()
     }
     return Promise.resolve(null)
   }
@@ -181,7 +209,7 @@ export class PluginBridge {
   }
 
   navStackPop () {
-    this.navStack.pop()
-    return Promise.resolve(null)
+    let path = this.navStack.pop()
+    return Promise.resolve(path)
   }
 }
