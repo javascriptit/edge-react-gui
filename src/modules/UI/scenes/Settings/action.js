@@ -68,7 +68,9 @@ export const setAutoLogoutTimeInSecondsRequest = (autoLogoutTimeInSeconds) => (d
   const state = getState()
   const account = CORE_SELECTORS.getAccount(state)
   ACCOUNT_SETTINGS.setAutoLogoutTimeInSecondsRequest(account, autoLogoutTimeInSeconds)
-    .then(() => dispatch(SETTINGS_ACTIONS.setAutoLogoutTimeInSeconds(autoLogoutTimeInSeconds)))
+    .then(() => {
+      dispatch(SETTINGS_ACTIONS.setAutoLogoutTimeInSeconds(autoLogoutTimeInSeconds))
+    })
     .catch((error) => { console.error(error) })
 }
 

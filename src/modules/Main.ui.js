@@ -383,15 +383,15 @@ export default class Main extends Component<Props, State> {
   }
 
   beginAutoLogoutTimer () {
-    const autoLogoutTimeInMilliseconds = (this.props.autoLogoutTimeInSeconds * 1000)
-    const timeout = setTimeout(this.autoLogout, autoLogoutTimeInMilliseconds)
-    this.setState({timeout})
+    // const autoLogoutTimeInMilliseconds = (this.props.autoLogoutTimeInSeconds * 1000)
+    // const timeout = setTimeout(this.autoLogout, autoLogoutTimeInMilliseconds)
+    // this.setState({timeout})
   }
 
   cancelAutoLogoutTimer () {
-    const {timeout} = this.state
-    clearTimeout(timeout)
-    this.setState({timeout: undefined})
+    // const {timeout} = this.state
+    // clearTimeout(timeout)
+    // this.setState({timeout: undefined})
   }
 
   autoLogout () {
