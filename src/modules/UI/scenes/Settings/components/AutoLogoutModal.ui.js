@@ -15,13 +15,11 @@ export default class AutoLogoutModal extends Component {
   constructor (props) {
     super(props)
     this.state = {
-      showModal: props.showModal,
       autoLogoutTimeInMinutes: props.autoLogoutTimeInMinutes
     }
   }
 
   onDone = () => {
-    this.setState({showModal: false})
     this.props.onDone(this.state.autoLogoutTimeInMinutes)
   }
 

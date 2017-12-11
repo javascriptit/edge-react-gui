@@ -107,7 +107,6 @@ const RouterWithRedux = connect()(Router)
 
 type Props = {
   username?: string,
-  routes: any,
   autoLogoutTimeInSeconds: number,
   addExchangeTimer: (number) => void,
   addCurrencyPlugin: (AbcCurrencyPlugin) => void,
@@ -209,6 +208,12 @@ export default class Main extends Component<Props, State> {
       })
     })
   }
+  shouldComponentUpdate (nextProps: Props) {
+    if (nextProps.autoLogoutTimeInSeconds !== this.props.autoLogoutTimeInSeconds) {
+      return false
+    }
+    return true
+  }
 
   icon = (tabName: string) => (props: {focused: boolean}) => {
     if (typeof tabBarIconFiles[tabName] === 'undefined' || typeof tabBarIconFilesSelected[tabName] === 'undefined') {
@@ -257,9 +262,12 @@ export default class Main extends Component<Props, State> {
                             Actions.drawerOpen()
                           }}><Image source={MenuIcon}/></TouchableWithoutFeedback>} />
                           <Scene key={Constants.CREATE_WALLET} back renderBackButton={this.renderWalletListBackButton} component={CreateWallet} tintColor={styles.backButtonColor} title='Create Wallet' navTransparent={true} animation={'fade'} duration={600} />
-                          <Scene key={Constants.TRANSACTION_LIST} back renderBackButton={this.renderWalletListBackButton} tintColor={styles.backButtonColor} navTransparent={true} icon={this.icon(Constants.TRANSACTION_LIST)} renderTitle={this.renderWalletListNavBar} component={TransactionListConnector} renderRightButton={() => <TouchableWithoutFeedback onPress={() => {
-                            Actions.drawerOpen()
-                          }}><Image source={MenuIcon}/></TouchableWithoutFeedback>} tabBarLabel='Transactions' title='Transactions' animation={'fade'} duration={600} />
+                          <Scene key={Constants.TRANSACTION_LIST} back renderBackButton={this.renderWalletListBackButton}
+                            tintColor={styles.backButtonColor} navTransparent={true} icon={this.icon(Constants.TRANSACTION_LIST)}
+                            renderTitle={this.renderWalletListNavBar} component={TransactionListConnector}
+                            renderRightButton={() => <TouchableWithoutFeedback onPress={() => {
+                              Actions.drawerOpen()
+                            }}><Image source={MenuIcon}/></TouchableWithoutFeedback>} tabBarLabel='Transactions' title='Transactions' animation={'fade'} duration={600} />
                         </Stack>
                         <Scene key={Constants.REQUEST} renderTitle={this.renderWalletListNavBar} navTransparent={true} icon={this.icon(Constants.REQUEST)} component={Request} tabBarLabel='Request' title='Request' renderLeftButton={() => <HelpButton/>} renderRightButton={() => <TouchableWithoutFeedback onPress={() => {
                           Actions.drawerOpen()
@@ -362,7 +370,7 @@ export default class Main extends Component<Props, State> {
       // console.log('Background -> Foreground')
       // this.setState({mainActive: true})
       //
-      // this.cancelAutoLogoutTimer()
+      this.cancelAutoLogoutTimer()
     }
 
     if (this.backgrounded(nextAppState)) {
@@ -370,7 +378,7 @@ export default class Main extends Component<Props, State> {
       // console.log('Foreground -> Background')
       // this.setState({mainActive: false})
       //
-      // if (this.props.autoLogoutTimeInSeconds) this.beginAutoLogoutTimer()
+      if (this.props.autoLogoutTimeInSeconds) this.beginAutoLogoutTimer()
     }
   }
 

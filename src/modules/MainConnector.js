@@ -18,9 +18,9 @@ import {enableScan, disableScan} from './UI/scenes/Scan/action'
 import makeContextCallbacks from './Core/Context/callbacks'
 
 const mapStateToProps = (state: State) => ({
-  routes: state.routes,
   autoLogoutTimeInSeconds: SETTINGS_SELECTORS.getAutoLogoutTimeInSeconds(state)
 })
+
 const mapDispatchToProps = (dispatch: Dispatch) => ({
   dispatchEnableScan: () => {
     return dispatch(enableScan())
