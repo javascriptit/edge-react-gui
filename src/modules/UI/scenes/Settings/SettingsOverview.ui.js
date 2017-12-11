@@ -84,19 +84,27 @@ export default class SettingsOverview extends Component {
     this.currencies = [
       {
         text: 'Bitcoin',
-        routeFunction: Actions.btcSettings
+        routeFunction: () => {
+          Actions.btcSettings()
+        }
       },
       {
         text: 'BitcoinCash',
-        routeFunction: Actions.bchSettings
+        routeFunction: () => {
+          Actions.bchSettings()
+        }
       },
       {
         text: 'Ethereum',
-        routeFunction: Actions.ethSettings
+        routeFunction: () => {
+          Actions.ethSettings()
+        }
       },
       {
         text: 'Litecoin',
-        routeFunction: Actions.ltcSettings
+        routeFunction: () => {
+          Actions.ltcSettings()
+        }
       },
     ]
   }
@@ -208,7 +216,9 @@ export default class SettingsOverview extends Component {
 
             <RowRoute
               leftText={strings.enUS['settings_title_currency']}
-              routeFunction={Actions.defaultFiatSetting}
+              routeFunction={() => {
+                Actions.defaultFiatSetting()
+              }}
               right={<Text>{this.props.defaultFiat.replace('iso:', '')}</Text>} />
 
             {this.securityRoute.map(this.renderRowRoute)}

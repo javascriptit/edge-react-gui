@@ -48,7 +48,9 @@ export default class Main extends Component<Props, State> {
           </TouchableHighlight>
           <TouchableHighlight style={styles.others.iosTouchableHighlight}
             underlayColor={styles.main.iosTouchableHighlightUnderlayColor}
-            onPress={Actions.settingsOverviewTab}>
+            onPress={() => {
+              Actions.settingsOverviewTab()
+            }}>
             <View style={[ styles.others.link, styles.others.borderBottom, {flex: 1} ]}>
               <View style={styles.iconImageContainer}>
                 <Image style={styles.iconImage} source={settings} />

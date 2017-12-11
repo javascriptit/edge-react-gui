@@ -19,7 +19,9 @@ const mapStateToProps = (state: State) => {
   const displayDenomination = SETTINGS_SELECTORS.getDisplayDenomination(state, currencyCode || 'ETH')
   const {symbol: displaySymbol, name: displayName, multiplier: displayMultiplier} = displayDenomination
   const displayAmount = UTILS.convertNativeToDisplay(displayMultiplier)(nativeAmount)
-  const viewTransaction = () => Actions.transactionDetails({abcTransaction})
+  const viewTransaction = () => {
+    Actions.transactionDetails({abcTransaction})
+  }
 
   return {
     displayAlert,

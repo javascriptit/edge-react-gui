@@ -18,7 +18,9 @@ export const mapDispatchToProps = (dispatch: any) => ({
     console.log('Failue to login with edge ')
     console.log(e)
   }),
-  decline: () => Actions.pop()
+  decline: () => {
+    Actions.pop()
+  }
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(LinkedComponent)

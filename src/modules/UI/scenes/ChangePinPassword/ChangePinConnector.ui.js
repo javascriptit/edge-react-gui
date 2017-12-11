@@ -13,7 +13,9 @@ export const mapStateToProps = (state: State) => ({
 })
 
 export const mapDispatchToProps = () => ({
-  onComplete: Actions.pop
+  onComplete: () => {
+    Actions.pop()
+  }
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(ChangePinComponent)

@@ -328,7 +328,9 @@ export default class TransactionList extends Component<Props, State> {
 
                     <TouchableHighlight style={[styles.requestBox, styles.button]}
                       underlayColor={styleRaw.underlay.color}
-                      onPress={Actions.request}>
+                      onPress={() => {
+                        Actions.request()
+                      }}>
                       <View style={[styles.requestWrap]}>
                         <Image
                           style={{width: 25, height: 25}}
@@ -341,7 +343,9 @@ export default class TransactionList extends Component<Props, State> {
 
                     <TouchableHighlight style={[styles.sendBox, styles.button]}
                       underlayColor={styleRaw.underlay.color}
-                      onPress={Actions.scan}>
+                      onPress={() => {
+                        Actions.scan()
+                      }}>
                       <View style={[styles.sendWrap]}>
                         <Image
                           style={{width: 25, height: 25}}
