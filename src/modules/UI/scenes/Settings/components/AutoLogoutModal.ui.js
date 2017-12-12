@@ -30,7 +30,7 @@ export default class AutoLogoutModal extends Component {
 
   render () {
     const logoutOptions = [
-      {label: DISABLE_TEXT, value: null},
+      {label: DISABLE_TEXT, value: Infinity},
       {label: '1', value: 1},
       {label: '15', value: 15},
       {label: '30', value: 30},
