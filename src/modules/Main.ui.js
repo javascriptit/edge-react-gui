@@ -208,12 +208,12 @@ export default class Main extends Component<Props, State> {
       })
     })
   }
-  shouldComponentUpdate (nextProps: Props) {
-    if (nextProps.autoLogoutTimeInSeconds !== this.props.autoLogoutTimeInSeconds) {
-      return false
-    }
-    return true
-  }
+  // shouldComponentUpdate (nextProps: Props) {
+  //   if (nextProps.autoLogoutTimeInSeconds !== this.props.autoLogoutTimeInSeconds) {
+  //     return false
+  //   }
+  //   return true
+  // }
 
   icon = (tabName: string) => (props: {focused: boolean}) => {
     if (typeof tabBarIconFiles[tabName] === 'undefined' || typeof tabBarIconFilesSelected[tabName] === 'undefined') {

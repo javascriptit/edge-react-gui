@@ -71,7 +71,9 @@ export const setAutoLogoutTimeInSecondsRequest = (autoLogoutTimeInSeconds) => (d
     .then(() => {
       dispatch(SETTINGS_ACTIONS.setAutoLogoutTimeInSeconds(autoLogoutTimeInSeconds))
     })
-    .catch((error) => { console.error(error) })
+    .catch((error) => {
+      console.error(error)
+    })
 }
 
 export const setDefaultFiatRequest = (defaultFiat) => (dispatch, getState) => {
