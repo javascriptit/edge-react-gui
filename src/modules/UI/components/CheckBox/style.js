@@ -12,6 +12,9 @@ const styles = StyleSheet.create({
     borderColor: THEME.COLORS.GRAY_1,
     justifyContent: 'center',
     alignItems: 'center'
+  },
+  checkmark: {
+
   }
 })
 
