@@ -795,6 +795,8 @@ const strings = {
   addtoken_contract_address_input_text: 'Contract Address',
   addtoken_default_error_message: 'Please enter valid information',
   addtoken_denomination_input_text: 'Number of Decimal Places',
+  edittoken_top_instructions: 'Fill out token info and tap \'Save\' to edit token:',
+  edittoken_delete_prompt: 'Are you sure you want to delete %s (%s)?',
   fragment_wallets_sort: 'Sort',
   fragment_wallets_this_wallet: 'this wallet?', // needs work
   fragment_select_wallet_header_title: 'Choose one of the following as selected wallet:',

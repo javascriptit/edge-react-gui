@@ -52,6 +52,7 @@ import WalletList from './UI/scenes/WalletList/WalletListConnector'
 import CreateWallet from './UI/scenes/CreateWallet/createWalletConnector'
 import ManageTokens from './UI/scenes/ManageTokens'
 import AddToken from './UI/scenes/AddToken'
+import EditToken from './UI/scenes/EditToken'
 import SettingsOverview from './UI/scenes/Settings/SettingsOverviewConnector'
 import CurrencySettings from './UI/scenes/Settings/CurrencySettingsConnector'
 import DefaultFiatSettingConnector from './UI/scenes/Settings/DefaultFiatSettingConnector'
@@ -300,6 +301,7 @@ export default class Main extends Component<Props, State> {
                       <Stack key={Constants.MANAGE_TOKENS} title={'Manage Tokens'} navigationBarStyle={{backgroundColor: THEME.COLORS.PRIMARY}} navTransparent={true} hideTabBar>
                         <Scene key='manageTokens_notused' onLeft={Actions.pop} component={ManageTokens} back title='Manage Tokens' animation={'fade'} duration={600}  />
                         <Scene key={Constants.ADD_TOKEN} component={AddToken} onLeft={Actions.pop} leftTitle='Back' back title='Add Token' />
+                        <Scene key={Constants.EDIT_TOKEN} component={EditToken} onLeft={Actions.pop} leftTitle='Back' back title='Edit Token' />
                       </Stack>
                       <Stack key='settingsOverviewTab' title='Settings' navigationBarStyle={{backgroundColor: THEME.COLORS.PRIMARY}} hideDrawerButton={true} >
                         <Scene key={Constants.SETTINGS_OVERVIEW} tintColor={styles.backButtonColor} navTransparent={true} component={SettingsOverview} title='Settings' onLeft={Actions.pop} leftTitle='Back' animation={'fade'} duration={600} />

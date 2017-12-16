@@ -3,12 +3,14 @@
 import React, {Component} from 'react'
 import {
   View,
+  TouchableWithoutFeedback,
   TouchableHighlight
 } from 'react-native'
 import Text from '../../components/FormattedText'
 import CheckBox from '../../components/CheckBox'
-import styles from './style.js'
-import THEME from '../../../../theme/variables/airbitz'
+import styles, {styles as rawStyles} from './style.js'
+
+// import THEME from '../../../../theme/variables/airbitz'
 
 export type State = {
   enabled?: boolean
@@ -18,10 +20,11 @@ export type Props = {
   toggleToken: (string) => void,
   metaToken: any,
   enabled?: boolean,
-  enabledList: Array<string>
+  enabledList: Array<string>,
+  goToEditTokenScene: (string) => void
 }
 
-class ManageTokenRow extends Component<Props, State> {
+class ManageTokenRow extends Component<Props , State> {
   constructor (props: Props) {
     super(props)
     this.state = {
@@ -37,16 +40,23 @@ class ManageTokenRow extends Component<Props, State> {
     }
 
     return (
+
       <TouchableHighlight
+        onPress={() => this.props.goToEditTokenScene(item.currencyCode)}
+        underlayColor={rawStyles.underlay.color}
         style={[styles.manageTokenRow]}
-        onPress={() => this.props.toggleToken(item.currencyCode)}
-        underlayColor={THEME.COLORS.PRIMARY_BUTTON_TOUCHED}
       >
         <View style={[styles.manageTokenRowInterior]}>
           <View style={[styles.tokenNameArea]}>
             <Text style={[styles.tokenNameText]}>{item.currencyName} ({item.currencyCode})</Text>
           </View>
-          <CheckBox enabled={enabled} />
+          <TouchableWithoutFeedback
+            onPress={() => this.props.toggleToken(item.currencyCode)}
+          >
+            <View style={[styles.touchableCheckboxInterior]}>
+              <CheckBox enabled={enabled} />
+            </View>
+          </TouchableWithoutFeedback>
         </View>
       </TouchableHighlight>
     )

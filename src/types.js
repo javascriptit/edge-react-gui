@@ -92,6 +92,15 @@ export type ExchangeData = {
   secondaryCurrencyCode: string
 }
 
+export type CustomTokenInfo = {
+  currencyName: string,
+  currencyCode: string,
+  contractAddress: string,
+  decimalPlaces: string,
+  multiplier: string,
+  decimalPlaces: string
+}
+
 export type CurrencyConverter = {
   convertCurrency: (currencyCode: string, isoFiatCurrencyCode: string, balanceInCryptoDisplay: string) => number
 }

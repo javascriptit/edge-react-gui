@@ -117,7 +117,14 @@ class ManageTokens extends Component<Props & DispatchProps, State> {
             <View style={[styles.metaTokenListWrap]}>
               <FlatList
                 data={this.state.combinedCurrencyInfos}
-                renderItem={(metaToken) => <ManageTokenRow metaToken={metaToken} toggleToken={this.toggleToken} enabledList={this.state.enabledList} />}
+                renderItem={(metaToken) =>
+                  <ManageTokenRow
+                    goToEditTokenScene={this.goToEditTokenScene}
+                    metaToken={metaToken}
+                    walletId={this.props.guiWallet.id}
+                    toggleToken={this.toggleToken}
+                    enabledList={this.state.enabledList}
+                />}
                 style={[styles.tokenList]}
               />
             </View>
@@ -160,6 +167,11 @@ class ManageTokens extends Component<Props & DispatchProps, State> {
   goToAddTokenScene = () => {
     const { id } = this.props.guiWallet
     Actions.addToken({walletId: id})
+  }
+
+  goToEditTokenScene = (currencyCode) => {
+    const { id } = this.props.guiWallet
+    Actions.editToken({ walletId: id, currencyCode })
   }
 }
 
