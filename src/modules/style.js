@@ -6,17 +6,15 @@ export const styles = {
   leftButtonText: {
     color: THEME.COLORS.WHITE,
     fontFamily: THEME.FONTS.DEFAULT,
-    fontWeight: 'normal'
   },
   rightButtonTextStyle: {
     color: THEME.COLORS.WHITE,
     fontFamily: THEME.FONTS.DEFAULT,
-    fontWeight: 'normal'
   },
   titleStyle: {
     alignSelf: 'center',
+    fontSize: 24,
     color: THEME.COLORS.WHITE,
     fontFamily: THEME.FONTS.DEFAULT,
-    fontWeight: 'normal'
   }
 }

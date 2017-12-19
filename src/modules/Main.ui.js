@@ -13,6 +13,7 @@ import { selectLocale } from '../locales/strings.js'
 import HockeyApp from 'react-native-hockeyapp'
 import React, {Component} from 'react'
 import {Keyboard, Platform, StatusBar, Image, TouchableWithoutFeedback} from 'react-native'
+import T from './UI/components/FormattedText'
 import {connect} from 'react-redux'
 import ControlPanel from './UI/components/ControlPanel/ControlPanelConnector'
 import THEME from '../theme/variables/airbitz'
@@ -125,6 +126,8 @@ tabBarIconFilesSelected[Constants.SCAN] = scanIconSelected
 tabBarIconFilesSelected[Constants.TRANSACTION_LIST] = exchangeIconSelected
 tabBarIconFilesSelected[Constants.EXCHANGE] = exchangeIconSelected
 
+const WALLETS = 'Wallets'
+
 type Props = {
   username?: string,
   addExchangeTimer: (number) => void,
@@ -194,20 +197,32 @@ export default class Main extends Component<Props, State> {
             <Overlay>
               <Modal hideNavBar transitionConfig={() => ({screenInterpolator: CardStackStyleInterpolator.forFadeFromBottomAndroid})}>
                 {/*<Lightbox>*/}
-                <Stack hideNavBar key='root' navigationBarStyle={{backgroundColor: THEME.COLORS.TRANSPARENT}} backButtonTintColor='white' titleStyle={{color: THEME.COLORS.WHITE, alignSelf: 'center'}}>
-                  <Scene key={Constants.LOGIN} component={LoginConnector} title='login'  initial username={this.props.username} />
-                  <Scene key={Constants.TRANSACTION_DETAILS} navTransparent={true} component={TransactionDetails} back clone title='Transaction Details'  />
-                  <Drawer hideNavBar key='edge' contentComponent={ControlPanel} hideDrawerButton={true} drawerPosition='right'>
-                    {/*
-                     Wrapper Scene needed to fix a bug where the tabs would
-                     reload as a modal ontop of itself
-                     */}
+                <Stack key='root' hideNavBar>
+                  <Scene key={Constants.LOGIN} initial
+                    component={LoginConnector}
+                    username={this.props.username} />
+                  <Scene key={Constants.TRANSACTION_DETAILS} navTransparent={true} back clone
+                    component={TransactionDetails}
+                    title='Transaction Details' />
+
+                  <Drawer key='edge' hideNavBar contentComponent={ControlPanel} hideDrawerButton={true} drawerPosition='right'>
+                    {/* Wrapper Scene needed to fix a bug where the tabs would reload as a modal ontop of itself */}
                     <Scene hideNavBar>
                       {/*<Gradient>*/}
                       <Tabs key='edge' swipeEnabled={true} navTransparent={true} tabBarPosition={'bottom'} showLabel={true}>
-                        <Stack key={Constants.WALLET_LIST} navigationBarStyle={{backgroundColor: THEME.COLORS.PRIMARY}} title='Wallets' icon={this.icon(Constants.WALLET_LIST)} activeTintColor={'transparent'} tabBarLabel='Wallets'>
-                          <Scene key='walletList_notused' component={WalletList} navTransparent={true} title='Wallets' renderLeftButton={() => <HelpButton/>} renderRightButton={() => <TouchableWithoutFeedback onPress={() => Actions.drawerOpen()}><Image source={MenuIcon}/></TouchableWithoutFeedback>} />
+                        <Stack key={Constants.WALLET_LIST}
+                          icon={this.icon(Constants.WALLET_LIST)}
+                          tabBarLabel={WALLETS}>
+
+                          <Scene key='walletList_notused' navTransparent={true}
+                            component={WalletList}
+                            renderTitle={<T style={stylesRaw.titleStyle}>{WALLETS}</T>}
+                            renderLeftButton={<HelpButton/>}
+                            renderRightButton={<TouchableWithoutFeedback onPress={Actions.drawerOpen}><Image source={MenuIcon}/></TouchableWithoutFeedback>}
+                          />
+
                           <Scene key={Constants.CREATE_WALLET} back renderBackButton={this.renderWalletListBackButton} component={CreateWallet} tintColor={stylesRaw.backButtonColor} title='Create Wallet' navTransparent={true}  />
+
                           <Scene key={Constants.TRANSACTION_LIST} back renderBackButton={this.renderWalletListBackButton} tintColor={stylesRaw.backButtonColor} navTransparent={true} icon={this.icon(Constants.TRANSACTION_LIST)} renderTitle={this.renderWalletListNavBar} component={TransactionListConnector} renderRightButton={() => <TouchableWithoutFeedback onPress={() => Actions.drawerOpen()}><Image source={MenuIcon}/></TouchableWithoutFeedback>} tabBarLabel='Transactions' title='Transactions'  />
                         </Stack>
                         <Scene key={Constants.REQUEST} renderTitle={this.renderWalletListNavBar} navTransparent={true} icon={this.icon(Constants.REQUEST)} component={Request} tabBarLabel='Request' title='Request' renderLeftButton={() => <HelpButton/>} renderRightButton={() => <TouchableWithoutFeedback onPress={() => Actions.drawerOpen()}><Image source={MenuIcon}/></TouchableWithoutFeedback>}  />
