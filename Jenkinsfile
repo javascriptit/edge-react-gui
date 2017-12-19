@@ -3,19 +3,19 @@ node {
     stage ("checkout") {
       checkout scm
     }
-    nodejs(nodeJSInstallationName: "LTS") {
-      stage ("install dependencies") {
-        sh "npm i"
-      }
+    withCredentials([file(credentialsId: "e8032027-1c74-4a4e-a4e0-26f0ff67fc1d", variable: "file")]) {
+      sh "cp ${file} ./env.json"
+      nodejs(nodeJSInstallationName: "LTS") {
+        stage ("install dependencies") {
+          sh "npm i"
+        }
 
-      stage ("test") {
-        sh "npm test"
-      }
-
-      stage ("build") {
-        sh "npm run build"
+        stage ("test") {
+          sh "npm test"
+        }
       }
     }
+    
   }
   catch(err) {
     // Do not add a stage here.
