@@ -74,8 +74,6 @@ SecondaryButton.propTypes = {
 }
 
 class TertiaryButton extends Component {
-  onPress = this.props.onPressFunction
-
   render () {
     return (
       <TouchableHighlight style={[
@@ -83,7 +81,7 @@ class TertiaryButton extends Component {
         styles.stylizedButton,
         this.props.buttonStyle
       ]}
-        onPress={this.onPress}
+        onPress={this.props.onPressFunction}
         underlayColor={styleRaw.tertiaryUnderlay.color}>
         <View style={[styles.stylizedButtonTextWrap]}>
           <T style={[styles.tertiaryButtonText, this.props.textStyle]} {...this.props}>

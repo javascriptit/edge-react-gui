@@ -11,6 +11,8 @@ export const SELECT_WALLET = PREFIX + 'SELECT_WALLET'
 export const MANAGE_TOKENS = 'MANAGE_TOKENS'
 export const MANAGE_TOKENS_START = 'MANAGE_TOKENS_START'
 export const MANAGE_TOKENS_SUCCESS = 'MANAGE_TOKENS_SUCCESS'
+export const DELETE_CUSTOM_TOKEN_START = 'DELETE_CUSTOM_TOKEN_START'
+export const DELETE_CUSTOM_TOKEN_SUCCESS = 'DELETE_CUSTOM_TOKEN_SUCCESS'
 
 // import * as UI_SELECTORS from '../selectors.js'
 import * as CORE_SELECTORS from '../../Core/selectors.js'
@@ -122,6 +124,18 @@ export const getEnabledTokens = (walletId: string) => (dispatch: Dispatch, getSt
     })
   })
 }
+
+export const deleteCustomToken = (walletId: string, currencyCode: string) => (dispatch: any, getState: any) => {
+
+}
+
+export const deleteCustomTokenStart = () => ({
+  type: DELETE_CUSTOM_TOKEN_START
+})
+
+export const deleteCustomTokenSuccess = () => ({
+  type: DELETE_CUSTOM_TOKEN_SUCCESS
+})
 
 export const setTokensStart = () => ({
   type: MANAGE_TOKENS_START

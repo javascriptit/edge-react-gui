@@ -796,6 +796,7 @@ const strings = {
   addtoken_default_error_message: 'Please enter valid information',
   addtoken_denomination_input_text: 'Number of Decimal Places',
   edittoken_top_instructions: 'Fill out token info and tap \'Save\' to edit token:',
+  edittoken_delete_token: 'Delete Token',
   edittoken_delete_prompt: 'Are you sure you want to delete %s (%s)?',
   fragment_wallets_sort: 'Sort',
   fragment_wallets_this_wallet: 'this wallet?', // needs work

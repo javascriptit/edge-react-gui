@@ -81,21 +81,35 @@ export const styles = {
     alignSelf: 'flex-end',
     paddingVertical: 4
   },
-  addButton: {
-    flex: 1,
-    marginRight: 2,
-    backgroundColor: THEME.COLORS.GRAY_2,
-    borderRadius: 3
-  },
   buttonText: {
     color: THEME.COLORS.WHITE,
     fontSize: 18
   },
-  saveButton: {
+  button: {
     flex: 1,
+    borderRadius: 3
+  },
+  deleteButton: {
+    marginRight: 2,
+  },
+  saveButton: {
     marginLeft: 2,
     backgroundColor: THEME.COLORS.SECONDARY,
-    borderRadius: 3
+  },
+  deleteModalButtonsArea: {
+    height: 52,
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    paddingVertical: 4,
+    flexDirection: 'row',
+    flex: 1
+  },
+  modalCancelButton: {
+    marginRight: 2,
+  },
+  modalDeleteButton: {
+    marginLeft: 2,
+    backgroundColor: THEME.COLORS.SECONDARY,
   },
   bottomPaddingForKeyboard: {
     height: 300

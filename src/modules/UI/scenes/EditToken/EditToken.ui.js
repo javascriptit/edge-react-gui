@@ -10,10 +10,13 @@ import Text from '../../components/FormattedText'
 import s from '../../../../locales/strings.js'
 import Gradient from '../../components/Gradient/Gradient.ui'
 import styles from './style.js'
-import {PrimaryButton} from '../../components/Buttons'
+import {PrimaryButton, TertiaryButton} from '../../components/Buttons'
 import {FormField} from '../../../../components/FormField.js'
 // import * as WALLET_ACTIONS from '../../Wallets/action.js'
 import type {CustomTokenInfo} from '../../../../types.js'
+import StylizedModal from '../../components/Modal/Modal.ui'
+import DeleteTokenButtons from './components/DeleteTokenButtons.ui.js'
+import DeleteIcon from '../WalletList/components/DeleteIcon.ui'
 import _ from 'lodash'
 
 export type DispatchProps = {
@@ -34,7 +37,8 @@ type Props = {
   addTokenPending: Function,
   addToken: Function,
   currencyCode: string,
-  currencySettings: CustomTokenInfo
+  currencySettings: CustomTokenInfo,
+  deleteTokenModalVisible: boolean
 }
 
 export default class EditToken extends Component<Props, State> {
@@ -57,6 +61,17 @@ export default class EditToken extends Component<Props, State> {
     return (
       <View style={[styles.editTokens]}>
         <Gradient style={styles.gradient} />
+        <StylizedModal
+          headerText={'edittoken_delete_prompt'}
+          visibilityBoolean={this.props.deleteTokenModalVisible}
+          featuredIcon={<DeleteIcon />}
+          modalBottom={<DeleteTokenButtons
+            deleteButtonFunction={this.props.deleteToken}
+            cancelButtonFunction={this.props.hideDeleteTokenModal}
+          />}
+          onExitButtonFxn={this.props.hideDeleteTokenModal}
+          onDeleteButtonFxn={this.props.deleteCustomToken}
+        />
         <ScrollView style={styles.container}>
           <View style={styles.instructionalArea}>
             <Text style={styles.instructionalText}>{s.strings.edittoken_top_instructions}</Text>
@@ -68,8 +83,18 @@ export default class EditToken extends Component<Props, State> {
                 value={this.state.currencyName}
                 onChangeText={this.onChangeName}
                 autoCapitalize={'words'}
-                autoFocus
                 label={s.strings.addtoken_name_input_text}
+                returnKeyType={'done'}
+                autoCorrect={false}
+              />
+            </View>
+            <View style={[styles.currencyCodeArea]}>
+              <FormField
+                style={[styles.currencyCodeInput]}
+                value={this.state.currencyCode}
+                onChangeText={this.onChangeCurrencyCode}
+                autoCapitalize={'characters'}
+                label={s.strings.addtoken_currency_code_input_text}
                 returnKeyType={'done'}
                 autoCorrect={false}
               />
@@ -100,9 +125,14 @@ export default class EditToken extends Component<Props, State> {
             <Text style={styles.errorMessageText}>{this.state.errorMessage}</Text>
           </View>
           <View style={[styles.buttonsArea]}>
+            <TertiaryButton
+              text={s.strings.edittoken_delete_token}
+              onPressFunction={this.props.showDeleteTokenModal}
+              buttonStyle={styles.deleteButton}
+            />
             <PrimaryButton
               text={s.strings.string_save}
-              style={styles.saveButton}
+              style={[styles.saveButton, styles.button]}
               onPressFunction={this._onSave}
               processingElement={<ActivityIndicator />}
               processingFlag={this.props.addTokenPending}
@@ -112,6 +142,15 @@ export default class EditToken extends Component<Props, State> {
         </ScrollView>
       </View>
     )
+  }
+
+
+  showDeleteTokenModal = () => {
+    this.props.showDeleteTokenModal()
+  }
+
+  deleteToken = () => {
+    this.props.deleteToken()
   }
 
   onChangeName = (input: string) => {
