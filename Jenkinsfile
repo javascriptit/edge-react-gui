@@ -3,17 +3,18 @@ node {
     stage ("checkout") {
       checkout scm
     }
+    nodejs(nodeJSInstallationName: "LTS") {
+      stage ("install dependencies") {
+        sh "npm i"
+      }
 
-    stage ("install dependencies") {
-      sh "npm i"
-    }
+      stage ("test") {
+        sh "npm test"
+      }
 
-    stage ("test") {
-      sh "npm test"
-    }
-
-    stage ("build") {
-      sh "npm run build"
+      stage ("build") {
+        sh "npm run build"
+      }
     }
   }
   catch(err) {
