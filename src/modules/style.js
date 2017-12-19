@@ -1,8 +1,22 @@
-import {Platform} from 'react-native'
+// @flow
 import THEME from '../theme/variables/airbitz.js'
-const platform = Platform.OS
 
-export default {
-  statusBarHack: (platform === 'ios') ? {marginTop: 20, flex: 1} : {flex: 1},
-  backButtonColor: THEME.COLORS.WHITE
+export const styles = {
+  backButtonColor: THEME.COLORS.WHITE,
+  leftButtonText: {
+    color: THEME.COLORS.WHITE,
+    fontFamily: THEME.FONTS.DEFAULT,
+    fontWeight: 'normal'
+  },
+  rightButtonTextStyle: {
+    color: THEME.COLORS.WHITE,
+    fontFamily: THEME.FONTS.DEFAULT,
+    fontWeight: 'normal'
+  },
+  titleStyle: {
+    alignSelf: 'center',
+    color: THEME.COLORS.WHITE,
+    fontFamily: THEME.FONTS.DEFAULT,
+    fontWeight: 'normal'
+  }
 }
