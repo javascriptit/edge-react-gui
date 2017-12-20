@@ -28,14 +28,16 @@ export default class DefaultFiatSetting extends Component {
 
     return <View>
       <Gradient style={styles.gradient} />
-      <DropdownPicker
-        startOpen
-        autoFocus
-        keyboardShouldPersistTaps={'always'}
-        listItems={supportedFiats || []}
-        placeholder={DEFAULT_FIAT_PICKER_PLACEHOLDER}
-        onSelect={this.onSelectFiat} />
+      <View style={styles.body}>
+        <DropdownPicker
+          startOpen
+          autoFocus
+          keyboardShouldPersistTaps={'always'}
+          listItems={supportedFiats || []}
+          placeholder={DEFAULT_FIAT_PICKER_PLACEHOLDER}
+          onSelect={this.onSelectFiat} />
       </View>
+    </View>
   }
 
   onSelectFiat = ({value: selectedFiat}) => {

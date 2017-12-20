@@ -5,6 +5,9 @@ export const styles = {
   gradient: {
     height: THEME.HEADER
   },
+  body: {
+    padding: 18
+  },
   container: {
     position: 'relative',
     height:'100%',
