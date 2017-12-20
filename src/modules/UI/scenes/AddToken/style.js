@@ -2,9 +2,7 @@ import {StyleSheet} from 'react-native'
 import THEME from '../../../../theme/variables/airbitz'
 import PLATFORM from '../../../../theme/variables/platform'
 
-
 export const styles = {
-
   gradient: {
     height: 66,
     width: '100%',

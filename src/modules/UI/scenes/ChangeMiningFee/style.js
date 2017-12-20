@@ -14,7 +14,7 @@ const styles = {
   header: {
     fontSize: 15,
     paddingBottom: 10,
-    // color: THEME.COLORS.GRAY_1,
+    color: THEME.COLORS.GRAY_1,
   },
   column: {
     flexDirection: 'row',
