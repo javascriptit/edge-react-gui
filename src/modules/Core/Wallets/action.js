@@ -32,12 +32,5 @@ export const updateWalletsRequest = () => (dispatch: Dispatch, getState: GetStat
   const account = CORE_SELECTORS.getAccount(state)
   const {activeWalletIds, archivedWalletIds, currencyWallets} = account
 
-  for (const walletId:string of Object.keys(currencyWallets)) {
-    const abcWallet:AbcCurrencyWallet = currencyWallets[walletId]
-    if (abcWallet.type === 'wallet:ethereum') {
-      abcWallet.enableTokens([])
-    }
-  }
-
   return dispatch(updateWallets(activeWalletIds, archivedWalletIds, currencyWallets))
 }

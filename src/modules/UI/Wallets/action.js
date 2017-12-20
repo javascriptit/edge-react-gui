@@ -17,9 +17,14 @@ export const DELETE_CUSTOM_TOKEN_SUCCESS = 'DELETE_CUSTOM_TOKEN_SUCCESS'
 // import * as UI_SELECTORS from '../selectors.js'
 import * as CORE_SELECTORS from '../../Core/selectors.js'
 import * as SETTINGS_SELECTORS from '../Settings/selectors'
+import * as SETTINGS_API from '../../Core/Account/settings.js'
+import {
+  updateSettings
+} from '../Settings/action'
 
 import type {Dispatch, GetState} from '../../ReduxTypes'
 import type {AbcCurrencyWallet} from 'airbitz-core-types'
+import _ from 'lodash'
 
 import * as WALLET_API from '../../Core/Wallets/api.js'
 
@@ -125,8 +130,48 @@ export const getEnabledTokens = (walletId: string) => (dispatch: Dispatch, getSt
   })
 }
 
+// this will delete the token from the account object (Settings area), Redux (settings area), and disable in both the wallet file and core
+// as long as the token is disabled *in the wallet file*, then it will eventually be disabled in the core, because eventually the phone turns off or restarts
 export const deleteCustomToken = (walletId: string, currencyCode: string) => (dispatch: any, getState: any) => {
+  const state = getState()
+  const coreWallets = CORE_SELECTORS.getWallets(state)
+  const guiWallets = state.ui.wallets.byId
+  const account = CORE_SELECTORS.getAccount(state)
 
+  dispatch(deleteCustomTokenStart())
+  SETTINGS_API.getSyncedSettings(account)
+  .then((settings) => {
+    delete settings[currencyCode] // remove top-level property. We should migrate away from it eventually anyway
+    const customTokensOnFile = settings.customTokens // should use '|| []' as catch-all or no?
+    if (customTokensOnFile.length === 0) return
+    const indexOfToken = _.findIndex(customTokensOnFile, (item) => item.currencyCode = currencyCode)
+    customTokensOnFile.splice(indexOfToken, 1)
+    settings.customTokens = customTokensOnFile // use new variable?
+    SETTINGS_API.setSyncedSettings(account, settings)
+    .then(() => {
+      // now time to loop through wallets and disable (on wallet and in core)
+      for (let prop in guiWallets) {
+        let theGuiWallet = guiWallets[prop]
+        let theCoreWallet = coreWallets[prop]
+        if (theGuiWallet.enabledTokens && theGuiWallet.enabledTokens.length > 0) {
+          // if the wallet has tokens
+          const indexOfEnabledToken = theGuiWallet.enabledTokens.indexOf(currencyCode)
+          // find the index of the token
+          theGuiWallet.enabledTokens.splice(indexOfEnabledToken, 1)
+          // and remove it from the enabledTokens property
+          const indexOfMetaToken = _.findIndex(theGuiWallet.metaTokens, (item) => item.currencyCode === currencyCode)
+          theGuiWallet.metaTokens.splice(indexOfMetaToken, 1)
+          dispatch(setEnabledTokens(theGuiWallet.id, theGuiWallet.enabledTokens, [currencyCode]))
+        }
+      }
+      // wait until all wallets have been disabled before you remove denom from settings
+      dispatch(updateSettings(settings))
+      dispatch(deleteCustomTokenSuccess())
+    })
+    .catch((e) => {
+      console.log(e)
+    })
+  })
 }
 
 export const deleteCustomTokenStart = () => ({

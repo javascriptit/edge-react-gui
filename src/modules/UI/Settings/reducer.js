@@ -1,5 +1,8 @@
 import * as ACTION from './action.js'
 import * as ADD_TOKEN_ACTION from '../scenes/AddToken/action.js'
+import * as SETTINGS_ACTION from './action'
+import _ from 'lodash'
+
 import {
   SYNCED_ACCOUNT_DEFAULTS,
   LOCAL_ACCOUNT_DEFAULTS,
@@ -42,6 +45,14 @@ export const settings = (state = initialState, action) => {
     return {
       ...state,
       [currencyCode]: data
+    }
+  }
+
+  case SETTINGS_ACTION.DELETE_CUSTOM_TOKEN: {
+    const currencyCode = data
+    const newSettings = _.omit(state, [currencyCode])
+    return {
+      newSettings
     }
   }
 

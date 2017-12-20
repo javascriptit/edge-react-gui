@@ -35,6 +35,7 @@ export const ADD_CURRENCY_PLUGIN = PREFIX + 'ADD_CURRENCY_PLUGIN'
 
 // tokens
 export const SET_CUSTOM_TOKENS = PREFIX + 'SET_CUSTOM_TOKENS'
+export const DELETE_CUSTOM_TOKEN = PREFIX + 'DELETE_CUSTOM_TOKEN'
 
 export const setLoginStatus = (loginStatus) => ({
   type: SET_LOGIN_STATUS,
@@ -134,5 +135,12 @@ export const setCustomTokens = (customTokens) => {
   return {
     type: SET_CUSTOM_TOKENS,
     data: {customTokens}
+  }
+}
+
+export const deleteCustomToken = (currencyCode) => {
+  return {
+    type: DELETE_CUSTOM_TOKEN,
+    data: currencyCode
   }
 }

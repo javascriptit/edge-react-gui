@@ -9,6 +9,9 @@ import {
 import Text from '../../components/FormattedText'
 import CheckBox from '../../components/CheckBox'
 import styles, {styles as rawStyles} from './style.js'
+import Icon from 'react-native-vector-icons/SimpleLineIcons'
+import _ from 'lodash'
+import * as UTILS from '../../../utils.js'
 
 // import THEME from '../../../../theme/variables/airbitz'
 
@@ -24,7 +27,7 @@ export type Props = {
   goToEditTokenScene: (string) => void
 }
 
-class ManageTokenRow extends Component<Props , State> {
+class ManageTokenRow extends Component<Props, State> {
   constructor (props: Props) {
     super(props)
     this.state = {
@@ -33,30 +36,37 @@ class ManageTokenRow extends Component<Props , State> {
   }
 
   render () {
-    const { item } = this.props.metaToken
+    const { item, guiWallet } = this.props.metaToken
     let enabled = false
     if (this.props.enabledList.indexOf(item.currencyCode) >= 0) {
       enabled = true
     }
+    const isEditable: boolean = (_.findIndex(this.props.customTokensList, (token) =>  token.currencyCode === item.currencyCode) !== -1)
+    const onPress = isEditable ? this.props.goToEditTokenScene : UTILS.noOp
 
     return (
 
       <TouchableHighlight
-        onPress={() => this.props.goToEditTokenScene(item.currencyCode)}
+        onPress={() => onPress(item.currencyCode)}
         underlayColor={rawStyles.underlay.color}
         style={[styles.manageTokenRow]}
       >
         <View style={[styles.manageTokenRowInterior]}>
-          <View style={[styles.tokenNameArea]}>
-            <Text style={[styles.tokenNameText]}>{item.currencyName} ({item.currencyCode})</Text>
-          </View>
-          <TouchableWithoutFeedback
-            onPress={() => this.props.toggleToken(item.currencyCode)}
-          >
-            <View style={[styles.touchableCheckboxInterior]}>
-              <CheckBox enabled={enabled} />
+          <View style={styles.rowLeftArea}>
+            <TouchableWithoutFeedback
+              onPress={() => this.props.toggleToken(item.currencyCode)}
+            >
+              <View style={[styles.touchableCheckboxInterior]}>
+                <CheckBox style={{alignSelf: 'center'}} enabled={enabled} />
+              </View>
+            </TouchableWithoutFeedback>
+            <View style={[styles.tokenNameArea]}>
+              <Text style={[styles.tokenNameText]}>{item.currencyName} ({item.currencyCode})</Text>
             </View>
-          </TouchableWithoutFeedback>
+          </View>
+          <View>
+            {isEditable && <Icon style={styles.rowRightArrow} name='arrow-right' />}
+          </View>
         </View>
       </TouchableHighlight>
     )

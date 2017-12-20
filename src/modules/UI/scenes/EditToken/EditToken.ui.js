@@ -45,7 +45,7 @@ export default class EditToken extends Component<Props, State> {
   constructor (props: Props) {
     super(props)
     // $FlowFixMe
-    const currencyInfo: CustomTokenInfo = _.find(props.currencySettings, (item) => item.currencyCode = props.currencyCode)
+    const currencyInfo: CustomTokenInfo = _.find(props.currencySettings, (item) => item.currencyCode === props.currencyCode)
     const { currencyName, contractAddress, decimalPlaces } = currencyInfo
     this.state = {
       currencyName,
@@ -66,7 +66,7 @@ export default class EditToken extends Component<Props, State> {
           visibilityBoolean={this.props.deleteTokenModalVisible}
           featuredIcon={<DeleteIcon />}
           modalBottom={<DeleteTokenButtons
-            deleteButtonFunction={this.props.deleteToken}
+            deleteButtonFunction={this.deleteToken}
             cancelButtonFunction={this.props.hideDeleteTokenModal}
           />}
           onExitButtonFxn={this.props.hideDeleteTokenModal}
@@ -150,7 +150,7 @@ export default class EditToken extends Component<Props, State> {
   }
 
   deleteToken = () => {
-    this.props.deleteToken()
+    this.props.deleteCustomToken(this.props.walletId, this.props.currencyCode)
   }
 
   onChangeName = (input: string) => {

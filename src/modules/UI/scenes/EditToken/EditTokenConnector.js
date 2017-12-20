@@ -9,7 +9,8 @@ import type {Dispatch, State} from '../../../ReduxTypes'
 
 const mapStateToProps = (state: State) => ({
   currencySettings: state.ui.settings.customTokens,
-  deleteTokenModalVisible: state.ui.scenes.editToken.deleteTokenModalVisible
+  deleteTokenModalVisible: state.ui.scenes.editToken.deleteTokenModalVisible,
+  currencyPluginsList: state.ui.settings.plugins.arrayPlugins
 })
 const mapDispatchToProps = (dispatch: Dispatch) => ({
   dispatch,
