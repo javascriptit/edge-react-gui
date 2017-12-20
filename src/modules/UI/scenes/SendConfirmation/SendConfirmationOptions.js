@@ -5,16 +5,15 @@ import {sprintf} from 'sprintf-js'
 import s from '../../../../locales/strings.js'
 import {border} from '../../../utils'
 
-
 const CHANGE_MINING_FEE_TEXT = sprintf(s.strings.change_mining_fee_title)
 const CHANGE_CURRENCY_TEXT = 'Change Currency'
 const SEND_MAX_TEXT = sprintf(s.strings.send_confirmation_max_button_title)
 const HELP_TEXT = sprintf(s.strings.string_help)
 
 const CHANGE_MINING_FEE = 'CHANGE_MINING_FEE'
-const CHANGE_CURRENCY = 'CHANGE_CURRENCY'
-const SEND_MAX = 'SEND_MAX'
-const HELP = 'HELP'
+const CHANGE_CURRENCY   = 'CHANGE_CURRENCY'
+const SEND_MAX          = 'SEND_MAX'
+const HELP              = 'HELP'
 
 import styles from './styles'
 

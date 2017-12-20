@@ -31,6 +31,8 @@ import DeleteIcon from './components/DeleteIcon.ui'
 import RenameIcon from './components/RenameIcon.ui'
 import platform from '../../../../theme/variables/platform.js'
 
+import THEME from '../../../../theme/variables/airbitz'
+
 import type {GuiContact} from '../../../../types'
 
 const DONE_TEXT           = s.strings.string_done_cap
@@ -91,7 +93,6 @@ type Props = {
   updateActiveWalletsOrder: (Array<string>) => void,
   walletRowOption: (walletId: string, string) => void,
 }
-
 export default class WalletList extends Component<Props, State> {
   constructor (props: any) {
     super(props)
@@ -151,6 +152,7 @@ export default class WalletList extends Component<Props, State> {
       break
     }
   }
+
   render () {
     const {
       wallets,
@@ -189,7 +191,7 @@ export default class WalletList extends Component<Props, State> {
       <View style={styles.container}>
         {this.renderDeleteWalletModal()}
         {this.renderRenameWalletModal()}
-        <Gradient style={{height: 66, width: '100%'}} />
+        <Gradient style={styles.gradient} />
 
         <TouchableOpacity onPress={this.handleOnBalanceBoxPress}>
           {this.state.balanceBoxVisible

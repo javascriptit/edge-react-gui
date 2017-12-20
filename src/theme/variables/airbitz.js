@@ -41,6 +41,8 @@ export default {
     HEADER: Platform.OS === 'ios' ? 66 : 56
   },
 
+  HEADER: Platform.OS === 'ios' ? 66 : 56,
+
   DEBUG: {
     COLORS: {
       HIGHLIGHT: '#f03a47'

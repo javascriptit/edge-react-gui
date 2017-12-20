@@ -7,6 +7,10 @@ import {
 import DropdownPicker from '../../components/DropdownPicker/indexDropdownPicker'
 import s from '../../../../locales/strings.js'
 
+import Gradient from '../../components/Gradient/Gradient.ui'
+
+import styles from './style'
+
 const DEFAULT_FIAT_PICKER_PLACEHOLDER = s.strings.settings_select_currency
 const INVALID_DATA_TEXT               = s.strings.fragment_create_wallet_select_valid
 
@@ -23,6 +27,7 @@ export default class DefaultFiatSetting extends Component {
     const {supportedFiats} = this.state
 
     return <View>
+      <Gradient style={styles.gradient} />
       <DropdownPicker
         startOpen
         autoFocus

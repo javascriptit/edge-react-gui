@@ -350,7 +350,7 @@ export default class Main extends Component<Props, State> {
                           renderTitle={this.renderTitle(LTC_SETTINGS)}
                           renderLeftButton={this.renderBackButton(BACK)}
                           renderRightButton={this.renderEmptyButton} />
-                        <Scene key='defaultFiatSetting'
+                        <Scene key='defaultFiatSetting' navTransparent={true}
                           component={DefaultFiatSettingConnector}
                           renderTitle={this.renderTitle(DEFAULT_FIAT)}
                           renderLeftButton={this.renderBackButton(BACK)}
