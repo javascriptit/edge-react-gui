@@ -117,6 +117,7 @@ export default class CryptoExchangeSceneComponent extends Component<Props, State
     const style = CryptoExchangeSceneStyle
     return (
       <Gradient style={[style.scene]}>
+        <View style={style.topSpacer} />
         <KeyboardAwareScrollView
           style={[style.mainScrollView]}
           keyboardShouldPersistTaps={Constants.ALWAYS}

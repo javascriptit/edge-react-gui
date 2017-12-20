@@ -4,6 +4,9 @@ import {StyleSheet} from 'react-native'
 import THEME from '../../../../theme/variables/airbitz'
 
 const styles = {
+  topSpacer: {
+    height: THEME.SPACER.HEADER
+  },
   wrapper: {
     padding: 60,
     flexDirection: 'column',
@@ -11,7 +14,7 @@ const styles = {
   header: {
     fontSize: 15,
     paddingBottom: 10,
-    color: THEME.COLORS.GRAY_1,
+    // color: THEME.COLORS.GRAY_1,
   },
   column: {
     flexDirection: 'row',

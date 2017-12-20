@@ -50,6 +50,7 @@ export default class ChangeMiningFee extends Component<Props, State> {
 
     return (
       <View style={style.wrapper}>
+        <View style={style.topSpacer} />
         <Text style={style.header} >
           {s.strings.change_mining_fee_body}
         </Text>
